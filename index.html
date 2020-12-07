@@ -7,53 +7,11 @@
     <script type="text/javascript" src="paper-full.js "></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/1.1.28/howler.js"></script>
     <link rel="stylesheet" type="text/css" href="circles.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
-        // Created for an Articles on:
-// https://www.html5andbeyond.com/bubbling-text-effect-no-canvas-required/
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-4ZPLezkTZTsojWFhpdFembdzFudphhoOzIunR1wH6g1WQDzCAiPvDyitaK67mp0+" crossorigin="anonymous">
 
-jQuery(document).ready(function($){
- 
- // Define a blank array for the effect positions. This will be populated based on width of the title.
- var bArray = [];
- // Define a size array, this will be used to vary bubble sizes
- var sArray = [4,6,8,10];
-
- // Push the header width values to bArray
- for (var i = 0; i < $('.bubbles').width(); i++) {
-     bArray.push(i);
- }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="bubbles.js"></script>
   
- // Function to select random array element
- // Used within the setInterval a few times
- function randomValue(arr) {
-     return arr[Math.floor(Math.random() * arr.length)];
- }
-
- // setInterval function used to create new bubble every 350 milliseconds
- setInterval(function(){
-      
-     // Get a random size, defined as variable so it can be used for both width and height
-     var size = randomValue(sArray);
-     // New bubble appeneded to div with it's size and left position being set inline
-     // Left value is set through getting a random value from bArray
-     $('.bubbles').append('<div class="individual-bubble" style="left: ' + randomValue(bArray) + 'px; width: ' + size + 'px; height:' + size + 'px;"></div>');
-      
-     // Animate each bubble to the top (bottom 100%) and reduce opacity as it moves
-     // Callback function used to remove finsihed animations from the page
-     $('.individual-bubble').animate({
-         'bottom': '100%',
-         'opacity' : '-=0.7'
-     }, 3000, function(){
-         $(this).remove()
-     }
-     );
-
-
- }, 350);
-
-});
-    </script>
-
     <script type="text/paperscript" canvas="myCanvas">
 
         var keyData = {
@@ -92,7 +50,80 @@ jQuery(document).ready(function($){
                 sound : new Howl({
                     urls: ['Sounds/moon.mp3']
                 })
+            },
+            q: {
+                color: "#FF5733",
+                sound : new Howl({
+                    urls: ['Sounds/flash-1.mp3']
+                })
+            },
+            w: {
+                color: "#FF8333",
+                sound : new Howl({
+                    urls: ['Sounds/pinwheel.mp3']
+                })
+            },
+            e: {
+                color: "#FFAE33",
+                sound : new Howl({
+                    urls: ['Sounds/piston-1.mp3']
+                })
+            },
+            r: {
+                color: "#FFC133",
+                sound : new Howl({
+                    urls: ['Sounds/prism-1.mp3']
+                })
+            },
+            t: {
+                color: "#FFF533",
+                sound : new Howl({
+                    urls: ['Sounds/splits.mp3']
+                })
+            },
+            y: {
+                color: "#C8FF33",
+                sound : new Howl({
+                    urls: ['Sounds/squiggle.mp3']
+                })
+            },
+            a: {
+                color: "#A6FF33",
+                sound : new Howl({
+                    urls: ['Sounds/strike.mp3']
+                })
+            },
+            s: {
+                color: "#FF5733",
+                sound : new Howl({
+                    urls: ['Sounds/suspension.mp3']
+                })
+            },
+            d: {
+                color: "#33FF5D",
+                sound : new Howl({
+                    urls: ['Sounds/timer.mp3']
+                })
+            },
+            f: {
+                color: "#33FFD8",
+                sound : new Howl({
+                    urls: ['Sounds/ufo.mp3']
+                })
+            },
+            g: {
+                color: "#9733FF",
+                sound : new Howl({
+                    urls: ['Sounds/veil.mp3']
+                })
+            },
+            h: {
+                color: "#FF33E6",
+                sound : new Howl({
+                    urls: ['Sounds/zig-zag.mp3']
+                })
             }
+            
         }
 
         var bubbles = [];
@@ -121,23 +152,43 @@ jQuery(document).ready(function($){
 </head>
 <body>
     <div class="bubbles">
-        <h1>BUBBLES</h1>
-        </div>
+        <h1><span>B</span>UBBLE<span>S</span></h1>
+    </div>
+    
     <canvas id="myCanvas" resize></canvas>
+    <hr>
     <table id="howto">
-        <th>Sounds</th>
+        
+        <h2>Sound Keyboard Index </h2>
         <tr>
-          <td>Firstname</td>
-          <td>Lastname</td>
+
+        <td><span id="index-color">1:</span>Confetti</td>
+        <td><span id="index-color">2:</span>Clay</td>
+        <td><span id="index-color">3:</span>Corona</td>
+        <td><span id="index-color">4:</span>Spiral</td>
+        <td><span id="index-color">5:</span>Glimmer</td>
+        <td><span id="index-color">6:</span>Moon</td>
+        </tr>
+        
+        <tr>
+        <td><span id="index-color">q:</span>Flash</td>
+        <td><span id="index-color">w:</span>Pinwheel</td>
+        <td><span id="index-color">e:</span>Piston</td>
+        <td><span id="index-color">r:</span>Prism</td>
+        <td><span id="index-color">t:</span>Splits</td>
+        <td><span id="index-color">y:</span>Squiggle</td>
         </tr>
         <tr>
-          <td>Peter</td>
-          <td>Griffin</td>
-        </tr>
-        <tr>
-          <td>Lois</td>
-          <td>Griffin</td>
+        <td><span id="index-color">a:</span>Strike</td>
+        <td><span id="index-color">s:</span>Suspension</td>
+        <td><span id="index-color">d:</span>Timer</td>
+        <td><span id="index-color">f:</span>UFO</td>
+        <td><span id="index-color">g:</span>Veil</td>
+        <td><span id="index-color">h:</span>ZigZag</td>
         </tr>
       </table>
 </body>
 </html>
+
+
+<!-- WRITE COMMENTS ON FUNCTIONALITY / FIND OUT HOW TO ADD RECORD BUTTON FROM HOWLER OR OTHER RESOURCE / INTEXT ANIMATION INSTEAD OF BOX/ MORE SOUNDS?// WTF JQUERY? -->
