@@ -4,16 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bubbled</title>
+    <!-- Paperjs script src  , this source is a file stored within our documents during downloa and installation -->
     <script type="text/javascript" src="paper-full.js "></script>
+    <!-- Howlerjs script src -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/1.1.28/howler.js"></script>
     <link rel="stylesheet" type="text/css" href="circles.css">
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-4ZPLezkTZTsojWFhpdFembdzFudphhoOzIunR1wH6g1WQDzCAiPvDyitaK67mp0+" crossorigin="anonymous">
-
+    <!-- Paperjs script type in order to use / Canvas is a html element that covers a canvas screen to draw graphics VIA SCRIPTING in JS, without js it wont do anything , it is stored in the body usually to take full screen effect   -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="bubbles.js"></script>
-  
+
     <script type="text/paperscript" canvas="myCanvas">
 
+
+        <!-- This keydata object is defined as a json object that howler gives us the capability to create exactly what sound and color will display, keydata is called in the event.key method(which is the key triggered by user )  -->
         var keyData = {
             1 : {
                 color: "#d0f0c0",
@@ -126,25 +130,36 @@
             
         }
 
-
+        <!-- we are saving bubbles in a bubbles array , then we are updating every bubble in function onFrame  -->
+        
         var bubbles = [];
 
+        <!-- on keydown is where the circle is created as the user clicks a key on the keyboard almost like a piano -->
+        
         function onKeyDown(event) {
+            <!-- IF THIS EXISTS THEN -->
             if(keyData[event.key]) {
+                
+                <!-- maxpoint is used to generate a point in a x y axis , random point grabs the point and randomises the coordinates randomly with the .random() method , then in var point these coordinates are multiplied to generate a new point for every button clicked  -->
 
             var maxPoint = new Point (view.size.width , view.size.height );
             var randomPoint = Point.random();
             var point = maxPoint * randomPoint;
             var newCircle = new Path.Circle(point, 500)
+
             newCircle.fillColor = keyData[event.key].color
             keyData[event.key].sound.play();
+
+
             bubbles.push(newCircle);
             }
         }
 
-
+<!--  -->
         function onFrame(event){
             for ( var i = 0; i < bubbles.length; i++ ){
+                <!-- everytime , were adding one to hue of the circle which changes the color slightly as it fades   -->
+                <!-- scale method is used for the speed of the scale of animation change within timeframe  -->
                 bubbles[i].fillColor.hue +=1;
                 bubbles[i].scale(.9);
             }
