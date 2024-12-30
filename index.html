@@ -3,169 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <meta property='og:title' content='Bubbled'/>
-    <meta property='og:image' content='/bubbled.png'/>
-    <meta property='og:description' content='Bubbled is a graphical interactive website to create audio and bubble shapes after a specific key is triggered ,'/>
-    <meta property='og:url' content='//https://focused-wilson-7d150e.netlify.app/'/>
     <title>Bubbled</title>
-    <!-- Paperjs script src  , this source is a file stored within our documents during downloa and installation -->
-    <script type="text/javascript" src="paper-full.js "></script>
-    <!-- Howlerjs script src -->
+    <script type="text/javascript" src="paper-full.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/1.1.28/howler.js"></script>
     <link rel="stylesheet" type="text/css" href="circles.css">
-    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-4ZPLezkTZTsojWFhpdFembdzFudphhoOzIunR1wH6g1WQDzCAiPvDyitaK67mp0+" crossorigin="anonymous">
-    <!-- Paperjs script type in order to use / Canvas is a html element that covers a canvas screen to draw graphics VIA SCRIPTING in JS, without js it wont do anything , it is stored in the body usually to take full screen effect   -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="bubbles.js"></script>
-
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Luckiest+Guy" rel="stylesheet">
+    
     <script type="text/paperscript" canvas="myCanvas">
-
-
-        <!-- This keydata object is defined as a json object that howler gives us the capability to create exactly what sound and color will display, keydata is called in the event.key method(which is the key triggered by user )  -->
         var keyData = {
-            1 : {
+            1: {
                 color: "#d0f0c0",
-                sound : new Howl({
+                sound: new Howl({
                     urls: ["Sounds/confetti.mp3"]
                 })
             },
             2: {
                 color: "#e6e6fa",
-                sound : new Howl({
+                sound: new Howl({
                     urls: ['Sounds/clay.mp3']
                 })
             },
             3: {
                 color: "#00ffff",
-                sound : new Howl({
+                sound: new Howl({
                     urls: ['Sounds/corona.mp3']
                 })
             },
-            4 : {
+            4: {
                 color: "#d8bfd8",
-                sound : new Howl({
+                sound: new Howl({
                     urls: ["Sounds/dotted-spiral.mp3"]
                 })
             },
             5: {
                 color: "#ba99dd",
-                sound : new Howl({
+                sound: new Howl({
                     urls: ['Sounds/glimmer.mp3']
                 })
             },
             6: {
                 color: "#EF5350",
-                sound : new Howl({
+                sound: new Howl({
                     urls: ['Sounds/moon.mp3']
                 })
             },
             q: {
                 color: "#FF5733",
-                sound : new Howl({
+                sound: new Howl({
                     urls: ['Sounds/flash-1.mp3']
                 })
             },
             w: {
                 color: "#FF8333",
-                sound : new Howl({
+                sound: new Howl({
                     urls: ['Sounds/pinwheel.mp3']
                 })
             },
             e: {
                 color: "#FFAE33",
-                sound : new Howl({
+                sound: new Howl({
                     urls: ['Sounds/piston-1.mp3']
                 })
             },
             r: {
                 color: "#FFC133",
-                sound : new Howl({
+                sound: new Howl({
                     urls: ['Sounds/prism-1.mp3']
                 })
             },
             t: {
                 color: "#FFF533",
-                sound : new Howl({
+                sound: new Howl({
                     urls: ['Sounds/splits.mp3']
                 })
             },
             y: {
                 color: "#C8FF33",
-                sound : new Howl({
+                sound: new Howl({
                     urls: ['Sounds/squiggle.mp3']
                 })
             },
             a: {
                 color: "#A6FF33",
-                sound : new Howl({
+                sound: new Howl({
                     urls: ['Sounds/strike.mp3']
                 })
             },
             s: {
                 color: "#FF5733",
-                sound : new Howl({
+                sound: new Howl({
                     urls: ['Sounds/suspension.mp3']
                 })
             },
             d: {
                 color: "#33FF5D",
-                sound : new Howl({
+                sound: new Howl({
                     urls: ['Sounds/timer.mp3']
                 })
             },
             f: {
                 color: "#33FFD8",
-                sound : new Howl({
+                sound: new Howl({
                     urls: ['Sounds/ufo.mp3']
                 })
             },
             g: {
                 color: "#9733FF",
-                sound : new Howl({
+                sound: new Howl({
                     urls: ['Sounds/veil.mp3']
                 })
             },
             h: {
                 color: "#FF33E6",
-                sound : new Howl({
+                sound: new Howl({
                     urls: ['Sounds/zig-zag.mp3']
                 })
             }
-            
-        }
-
-        <!-- we are saving bubbles in a bubbles array , then we are updating every bubble in function onFrame  -->
+        };
         
         var bubbles = [];
-
-        <!-- on keydown is where the circle is created as the user clicks a key on the keyboard almost like a piano -->
         
         function onKeyDown(event) {
-            <!-- IF THIS EXISTS THEN -->
             if(keyData[event.key]) {
-                
-                <!-- maxpoint is used to generate a point in a x y axis , random point grabs the point and randomises the coordinates randomly with the .random() method , then in var point these coordinates are multiplied to generate a new point for every button clicked  -->
-
-            var maxPoint = new Point (view.size.width , view.size.height );
-            var randomPoint = Point.random();
-            var point = maxPoint * randomPoint;
-            var newCircle = new Path.Circle(point, 500)
-
-            newCircle.fillColor = keyData[event.key].color
-            keyData[event.key].sound.play();
-
-
-            bubbles.push(newCircle);
+                var maxPoint = new Point(view.size.width, view.size.height);
+                var randomPoint = Point.random();
+                var point = maxPoint * randomPoint;
+                var newCircle = new Path.Circle(point, 500);
+                newCircle.fillColor = keyData[event.key].color;
+                keyData[event.key].sound.play();
+                bubbles.push(newCircle);
             }
         }
-
-<!--  -->
-        function onFrame(event){
-            for ( var i = 0; i < bubbles.length; i++ ){
-                <!-- everytime , were adding one to hue of the circle which changes the color slightly as it fades   -->
-                <!-- scale method is used for the speed of the scale of animation change within timeframe  -->
-                bubbles[i].fillColor.hue +=1;
+        
+        function onFrame(event) {
+            for(var i = 0; i < bubbles.length; i++) {
+                bubbles[i].fillColor.hue += 1;
                 bubbles[i].scale(.9);
             }
         }
@@ -177,42 +149,35 @@
     </div>
     
     <canvas id="myCanvas" resize></canvas>
-    <hr>
+    
     <div id="howto">
-    <table >
-        
-        <h2>Sound Keyboard Index </h2>
-        <tr>
-
-        <td><span id="index-color">1:</span>Confetti</td>
-        <td><span id="index-color">2:</span>Clay</td>
-        <td><span id="index-color">3:</span>Corona</td>
-        <td><span id="index-color">4:</span>Spiral</td>
-        <td><span id="index-color">5:</span>Glimmer</td>
-        <td><span id="index-color">6:</span>Moon</td>
-        </tr>
-        
-        <tr>
-        <td><span id="index-color">q:</span>Flash</td>
-        <td><span id="index-color">w:</span>Pinwheel</td>
-        <td><span id="index-color">e:</span>Piston</td>
-        <td><span id="index-color">r:</span>Prism</td>
-        <td><span id="index-color">t:</span>Splits</td>
-        <td><span id="index-color">y:</span>Squiggle</td>
-        </tr>
-        <tr>
-        <td><span id="index-color">a:</span>Strike</td>
-        <td><span id="index-color">s:</span>Suspension</td>
-        <td><span id="index-color">d:</span>Timer</td>
-        <td><span id="index-color">f:</span>UFO</td>
-        <td><span id="index-color">g:</span>Veil</td>
-        <td><span id="index-color">h:</span>ZigZag</td>
-        </tr>
-      </table></div>
-
-      
+        <h2>Sound Keyboard Index</h2>
+        <table>
+            <tr>
+                <td><span id="index-color">1:</span>Confetti</td>
+                <td><span id="index-color">2:</span>Clay</td>
+                <td><span id="index-color">3:</span>Corona</td>
+                <td><span id="index-color">4:</span>Spiral</td>
+                <td><span id="index-color">5:</span>Glimmer</td>
+                <td><span id="index-color">6:</span>Moon</td>
+            </tr>
+            <tr>
+                <td><span id="index-color">q:</span>Flash</td>
+                <td><span id="index-color">w:</span>Pinwheel</td>
+                <td><span id="index-color">e:</span>Piston</td>
+                <td><span id="index-color">r:</span>Prism</td>
+                <td><span id="index-color">t:</span>Splits</td>
+                <td><span id="index-color">y:</span>Squiggle</td>
+            </tr>
+            <tr>
+                <td><span id="index-color">a:</span>Strike</td>
+                <td><span id="index-color">s:</span>Suspension</td>
+                <td><span id="index-color">d:</span>Timer</td>
+                <td><span id="index-color">f:</span>UFO</td>
+                <td><span id="index-color">g:</span>Veil</td>
+                <td><span id="index-color">h:</span>ZigZag</td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>
-
-
-<!-- WRITE COMMENTS ON FUNCTIONALITY / MEDIA QUERY//FIND OUT HOW TO ADD RECORD BUTTON FROM HOWLER OR OTHER RESOURCE / INTEXT ANIMATION INSTEAD OF BOX/ MORE SOUNDS?// WTF JQUERY? -->

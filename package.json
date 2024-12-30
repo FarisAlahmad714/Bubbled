@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "howler": "^2.2.4",
+    "paper": "^0.12.18",
+    "react-simple-keyboard": "^3.8.32"
+  }
+}
